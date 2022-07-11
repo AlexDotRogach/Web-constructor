@@ -1,0 +1,23 @@
+{
+  "name": "web-constructor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/js/index.js",
+  "scripts": {
+    "start": "parcel ./src/index.html -p 4000 --open",
+    "production": "parcel build ./src/index.html --no-source-maps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexDotRogach/Web-constructor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexDotRogach/Web-constructor/issues"
+  },
+  "homepage": "https://github.com/AlexDotRogach/Web-constructor#readme",
+  "devDependencies": {
+    "parcel": "^2.6.2"
+  }
+}
