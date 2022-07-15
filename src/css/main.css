@@ -20,3 +20,113 @@
     box-shadow: inset -1px 0 0 rgba(0,0,0,.1);
     overflow-y: auto;
 }
+
+.sidebar {
+    font-size: 14px;
+}
+
+#form-group__type, #form-group__style, #form-group__text, .form-select{
+    padding: .1rem .35rem !important;
+    margin-bottom: 10px !important;
+}
+
+.btn-primary {
+    padding: 5px 8px !important;
+}
+
+.form-group__position {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: none;
+    margin-left: 10px;
+}
+
+.form-group__position input:hover {
+    cursor: pointer;
+}
+
+.se {
+    display: block !important;
+    margin: 5px auto 0 auto !important;
+}
+
+.form-label {
+    margin-bottom: 0 !important;
+}
+
+.row {
+    flex-direction: column;
+}
+
+/* Контейнер подсказок */
+.form-group {
+    position: relative; 
+}
+  
+/* Текст подсказки */
+.form-group .form-group-help {
+    /* visibility: hidden; */
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+/* Расположите текста подсказки */
+    position: absolute;
+    z-index: 100;
+    bottom: -70%;
+    left: 150%;
+    transform: translateX(-50%);
+    max-height: 100px;
+    overflow: hidden;
+
+/* Исчезают в подсказке */
+    /* opacity: 0;
+    transition: opacity 0.5s; */
+}
+
+/* Подсказка стрелка */
+.form-group .form-group-help::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-width: 5px;
+    border-style: solid;
+    transform: rotate(90deg);
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Отображение текста подсказки при наведении курсора мыши на контейнер подсказки */
+.form-group:hover .form-group-help {
+    visibility: visible;
+    opacity: 1;
+} 
+
+/* title elements */
+
+.panel-title {
+    display: flex;
+    justify-content: space-around;
+    height: 0;
+    transition: height 1s;
+    opacity: 0;
+}
+
+.panel-title_active {
+    height: 50px;
+    opacity: 1;
+}
+
+.panel-title * {
+    cursor: pointer;
+}
+
+.panel-title *:hover {
+    opacity: 0.7;
+    background: rgba(0,0,0,.1)
+}

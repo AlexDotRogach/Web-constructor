@@ -13,12 +13,104 @@
   width: 200px;
   z-index: 100;
   padding: 10px;
+  font-size: 14px;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   overflow-y: auto;
   box-shadow: inset -1px 0 #0000001a;
+}
+
+#form-group__type, #form-group__style, #form-group__text, .form-select {
+  margin-bottom: 10px !important;
+  padding: .1rem .35rem !important;
+}
+
+.btn-primary {
+  padding: 5px 8px !important;
+}
+
+.form-group__position {
+  padding: none;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-left: 10px;
+  display: flex;
+}
+
+.form-group__position input:hover {
+  cursor: pointer;
+}
+
+.se {
+  margin: 5px auto 0 !important;
+  display: block !important;
+}
+
+.form-label {
+  margin-bottom: 0 !important;
+}
+
+.row {
+  flex-direction: column;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group .form-group-help {
+  width: 160px;
+  color: #fff;
+  text-align: center;
+  z-index: 100;
+  max-height: 100px;
+  background-color: #555;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  bottom: -70%;
+  left: 150%;
+  overflow: hidden;
+  transform: translateX(-50%);
+}
+
+.form-group .form-group-help:after {
+  content: "";
+  border: 5px solid #0000;
+  border-top-color: #555;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(90deg);
+}
+
+.form-group:hover .form-group-help {
+  visibility: visible;
+  opacity: 1;
+}
+
+.panel-title {
+  height: 0;
+  opacity: 0;
+  justify-content: space-around;
+  transition: height 1s;
+  display: flex;
+}
+
+.panel-title_active {
+  height: 50px;
+  opacity: 1;
+}
+
+.panel-title * {
+  cursor: pointer;
+}
+
+.panel-title :hover {
+  opacity: .7;
+  background: #0000001a;
 }
 
 /*# sourceMappingURL=index.34df27b5.css.map */

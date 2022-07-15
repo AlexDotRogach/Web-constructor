@@ -10,7 +10,48 @@
 </head>
 <body>
     <div id="app" class="container-fluid">
-        <div id="panel" class="bg-light sidebar"></div>
+        <div id="panel" class="bg-light sidebar">
+            <div class="panel-title">
+                <h1>T</h1><h2>T</h2><h3>T</h3><h4>T</h4><h5>T</h5><h6>T</h6>
+            </div>
+            <form id="form-title">
+                <div class="form-group">
+                    <span class="form-group-help">Текст подсказки</span>
+                    <label for="validationCustom04" class="form-label">Type</label>
+                    <select class="form-select" data-value="true" id="validationCustom04" required>
+                    <option>text</option>
+                    <option>title</option>
+                    <option>img</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <span class="form-group-help">Текст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказкиТекст подсказки</span>
+                    <label for="form-group__text">Text</label>
+                    <input type="text" class="form-control" data-value="true" id="form-group__text" placeholder="Enter the text">
+                </div>
+                <div class="form-group">
+                    <span class="form-group-help">Текст подсказки</span>
+                    <label for="form-group__style">Style</label>
+                    <input type="text" class="form-control" data-value="true" id="form-group__style" placeholder="Enter the style">
+                </div>
+                <div class="form-group form-group__position">
+                    <span class="form-group-help">Текст подсказки</span>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" data-value="true" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="left">
+                        <label class="form-check-label" for="inlineRadio1"><img src="./images/left_position.jpg" alt="left"></label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" data-value="true" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="center">
+                        <label class="form-check-label" for="inlineRadio2"><img src="./images/center_position.jpg" alt="center"></label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" data-value="true" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="right">
+                        <label class="form-check-label" for="inlineRadio3"><img src="./images/right_position.jpg" alt="right"></label>
+                      </div>
+                </div>
+                <button type="submit" class="btn btn-primary se">Create</button>
+            </form>
+        </div>
         <div id="site" class="content"></div>
     </div>
 </body>

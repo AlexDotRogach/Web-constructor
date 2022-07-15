@@ -532,43 +532,117 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"ebWYT":[function(require,module,exports) {
-var _modelJs = require("./model.js");
-var _templates = require("./templates");
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _utilities = require("./utilities");
+var _utilitiesDefault = parcelHelpers.interopDefault(_utilities);
 var _mainCss = require("../css/main.css");
-// $ - element that is from DOM
-const $site = document.querySelector("#site");
-(0, _modelJs.model).forEach((block)=>{
-    let html = "";
-    html = (0, _templates.templates)[block.type];
-    if (html) $site.insertAdjacentHTML("beforeend", html(block));
+var _title = require("./title");
+var _titleDefault = parcelHelpers.interopDefault(_title);
+let $titleElem = document.querySelector(".panel-title");
+let selectTag;
+$titleElem.addEventListener("click", (e)=>{
+    if (e.target.localName != "div") selectTag = e.target.localName;
 });
+document.querySelector("#form-title").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    (0, _utilitiesDefault.default).createElement((0, _utilitiesDefault.default).settingObj(e.target, selectTag));
+});
+(0, _titleDefault.default)();
 
-},{"./model.js":"Y4A21","./templates":"18mfC","../css/main.css":"7E1TK"}],"Y4A21":[function(require,module,exports) {
+},{"./utilities":"3nTSs","../css/main.css":"7E1TK","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./title":"km65C"}],"3nTSs":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "model", ()=>model);
-const model = [
-    {
-        type: "title",
-        value: "Hello world from js"
+var _title = require("./class/Title");
+var _text = require("./class/Text");
+var _img = require("./class/Img");
+const appObj = {
+    settingObj: (form, titleTag = "h1")=>{
+        let inputValues = [];
+        let settingObj = {};
+        Array.from(form.querySelectorAll("[data-value='true']")).forEach((item)=>inputValues.push(item));
+        inputValues = inputValues.filter((item)=>{
+            if (!item.classList.contains("form-check-input")) return item.value;
+            if (item.checked) return item.value;
+        });
+        inputValues.forEach((item)=>{
+            settingObj[item.labels[0].textContent ? item.labels[0].textContent.toLowerCase() : "position"] = item.value;
+        });
+        if (!settingObj.style) settingObj.style = "";
+        if (!settingObj.text) settingObj.text = "Nothing";
+        if (settingObj.type == "title") settingObj.title = titleTag;
+        return settingObj;
     },
-    {
-        type: "text",
-        value: "text"
-    },
-    {
-        type: "column",
-        value: [
-            "111111111",
-            "222222222",
-            "3333333333"
-        ]
-    },
-    {
-        type: "image",
-        value: "../images/index.jpg"
+    createElement: function(settingObj) {
+        let typeElement = settingObj.type;
+        settingObj = setObjPosition(settingObj, typeElement);
+        const model = {
+            title: new (0, _title.Title)(settingObj, settingObj.title),
+            text: new (0, _text.Text)(settingObj),
+            img: new (0, _img.Img)(settingObj)
+        };
+        switch(typeElement){
+            case "title":
+                model[typeElement].createTitle();
+                break;
+            case "text":
+                model[typeElement].createText();
+                break;
+            case "img":
+                model[typeElement].createImg();
+                break;
+            default:
+                console.log("element don`t exist");
+        }
     }
-];
+};
+function setObjPosition(obj, type) {
+    if (!obj.position) return obj;
+    let container = obj.style;
+    let positionSetting = {
+        center: "align-self:center",
+        right: "align-self:end",
+        left: "align-self:start"
+    };
+    if (type == "title" || type == "text") obj.style = `text-align:${obj.position};`;
+    if (type == "img") obj.style = `${positionSetting[obj.position]};`;
+    obj.style += container;
+    return obj;
+}
+exports.default = appObj;
+
+},{"./class/Title":"a7smP","./class/Text":"h8hOU","./class/Img":"1npmB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"a7smP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Title", ()=>Title);
+var _block = require("./Block");
+class Title extends (0, _block.Block) {
+    constructor(settingObj){
+        super(settingObj), this.title = settingObj.title;
+    }
+    createTitle() {
+        super.render(super.createRow(super.createColumn(`<${this.title} style="${this.settingObj.style}">${this.settingObj.text}</${this.title}>`)));
+    }
+}
+
+},{"./Block":"bbk0C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bbk0C":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Block", ()=>Block);
+const $site = document.querySelector("#site");
+class Block {
+    constructor(settingObj){
+        this.settingObj = settingObj;
+    }
+    render(html) {
+        site.insertAdjacentHTML("beforeend", html);
+    }
+    createRow(content) {
+        return `<div class="row">${content}</div>`;
+    }
+    createColumn(content) {
+        return `<div class="col-sm">${content}</div>`;
+    }
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -600,45 +674,50 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"18mfC":[function(require,module,exports) {
+},{}],"h8hOU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "templates", ()=>templates);
-var _utilities = require("./utilities");
-const templates = {
-    title,
-    text,
-    column,
-    image
-};
-function title(block) {
-    return (0, _utilities.createRow)((0, _utilities.createColumn)(`${block.value}`));
-}
-function text(block) {
-    return (0, _utilities.createRow)((0, _utilities.createColumn)(`${block.value}`));
-}
-function column(block) {
-    let html = "";
-    html = block.value.map((element)=>(0, _utilities.createColumn)(`${element}`));
-    return (0, _utilities.createRow)(`${html.join("")}`);
-}
-function image(block) {
-    return (0, _utilities.createRow)(`<img src="../images/index.jpg" alt="img"/>`);
+parcelHelpers.export(exports, "Text", ()=>Text);
+var _block = require("./Block");
+class Text extends (0, _block.Block) {
+    constructor(settingObj){
+        super(settingObj);
+    }
+    createText() {
+        super.render(super.createRow(super.createColumn(`<div style="${this.settingObj.style}">${this.settingObj.text}</div>`)));
+    }
 }
 
-},{"./utilities":"3nTSs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3nTSs":[function(require,module,exports) {
+},{"./Block":"bbk0C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1npmB":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "createRow", ()=>createRow);
-parcelHelpers.export(exports, "createColumn", ()=>createColumn);
-parcelHelpers.export(exports, "createImg", ()=>createImg);
-function createRow(content) {
-    return `<div class="row">${content}</div>`;
-}
-function createColumn(content) {
-    return `<div class="col-sm">${content}</div>`;
+parcelHelpers.export(exports, "Img", ()=>Img);
+var _block = require("./Block");
+class Img extends (0, _block.Block) {
+    constructor(settingObj){
+        super(settingObj);
+    }
+    createImg() {
+        super.render(super.createRow(`<img src="${this.settingObj.text}" style="${this.settingObj.style}" alt="${this.settingObj.text} - this source isn\`t correct as path">`));
+    }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7E1TK":[function() {},{}]},["cVgJb","ebWYT"], "ebWYT", "parcelRequire1db6")
+},{"./Block":"bbk0C","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7E1TK":[function() {},{}],"km65C":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+let $selectElem = document.querySelector(".form-select");
+let $titleElem = document.querySelector(".panel-title");
+//title level
+function showTitle(select, panel) {
+    select.addEventListener("click", (e)=>{
+        if (e.target.tagName == "OPTION") {
+            if (e.target.value == "title") panel.classList.toggle("panel-title_active");
+            else panel.classList.remove("panel-title_active");
+        }
+    });
+}
+exports.default = showTitle($selectElem, $titleElem);
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["cVgJb","ebWYT"], "ebWYT", "parcelRequire1db6")
 
 //# sourceMappingURL=index.739bf03c.js.map
